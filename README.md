@@ -28,10 +28,11 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect;
 ```
 
-添加自己使用 python 简单抓取数据代码
+添加自己使用 `python` 简单抓取数据代码
 
-1. 只需修改 url 地址中的 sort 参数的值；
-2. 打印出来的值为 plist 文件格式
+1. 只需修改 `url` 地址中的 `sort` 参数的值；
+2. 打印出来的值为 `plist` 文件格式
+3. 因为此网站将没有看见的商品图片显示是占位图片，需要对 log 出来的 `link` 地址做一下判断
 
 ```python
 from bs4 import BeautifulSoup
