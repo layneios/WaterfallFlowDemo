@@ -27,3 +27,46 @@
  */
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect;
 ```
+
+添加自己使用 python 简单抓取数据代码
+
+1. 只需修改 url 地址中的 sort 参数的值；
+2. 打印出来的值为 plist 文件格式
+
+```python
+from bs4 import BeautifulSoup
+import os
+import urllib
+import urllib2
+if __name__ == '__main__':
+	html = urllib2.urlopen("http://www.xiangqu.com/list.html?sort=9&spm=2_0.0.0.2").read()
+	soup = BeautifulSoup(html, "lxml")
+	liResult = soup.find('section',attrs={"class":"goods-contenter"})
+	good_items = liResult.findAll('div',attrs={"class":"good-item"})
+	for good in good_items:
+		#print good
+		img = good.find('img')
+		link = img.get('src')
+		link1 = img.get('data-original')
+		width = img.get('width').replace('px','')
+		good_info = good.find('div',attrs={"class":"pic"})
+		height = good_info.get('style').replace('height:','').replace('px;','')
+		good_price = good.find('span')
+		#print good_price.string
+		#print link
+		#print link1
+		#print height
+		#print width
+		#print "<%s>" % good_price.string
+		print "<dict>"
+		print "<key>h</key>"
+		print "<integer>%s</integer>" % height
+		print "<key>img</key>"
+		print "<string>%s</string>" % link
+		print "<string>%s</string>" % link1
+	 	print "<key>price</key>"
+		print "<string>%s</string>" % good_price.string
+		print "<key>w</key>"
+		print "<integer>%s</integer>" % width
+		print "</dict>"
+```
